@@ -7,5 +7,6 @@ export interface countryInfo {
   name: string;
   capital: string;
   population: number;
-  neighbours: string[];
+  borders: string[];
+  flag: string;
 }

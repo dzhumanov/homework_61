@@ -12,19 +12,20 @@ const getCountry = async (
 
     const info = response.data;
     const neighboursInfo = await Promise.all(
-      info.neighbours?.map(async (neighbour) => {
+      info.borders?.map(async (border) => {
         const borders = await axios.get<countryInfo>(
-          `https://restcountries.com/v2/alpha/${neighbour}`
+          `https://restcountries.com/v2/alpha/${border}`
         );
         return borders.data.name;
-      }) || ["no borders"]
+      }) || ["No neighbours."]
     );
 
     const countryInfoList = {
       name: info.name,
       capital: info.capital,
       population: info.population,
-      neighbours: neighboursInfo,
+      borders: neighboursInfo,
+      flag: info.flag,
     };
 
     setSelectedCountry(countryInfoList);
