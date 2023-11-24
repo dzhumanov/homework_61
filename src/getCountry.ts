@@ -3,7 +3,7 @@ import { countryInfo } from "./types";
 
 const getCountry = async (
   code: string,
-  setCountry: React.Dispatch<React.SetStateAction<countryInfo | null>>
+  setSelectedCountry: React.Dispatch<React.SetStateAction<countryInfo | null>>
 ) => {
   try {
     const response = await axios.get<countryInfo>(
@@ -12,7 +12,7 @@ const getCountry = async (
 
     const info = response.data;
     const neighboursInfo = await Promise.all(
-      info.neighbours.map(async (neighbour) => {
+      info.neighbours?.map(async (neighbour) => {
         const borders = await axios.get<countryInfo>(
           `https://restcountries.com/v2/alpha/${neighbour}`
         );
@@ -27,7 +27,7 @@ const getCountry = async (
       neighbours: neighboursInfo,
     };
 
-    setCountry(countryInfoList);
+    setSelectedCountry(countryInfoList);
   } catch (error) {
     console.error("Error fetching country:", error);
   }

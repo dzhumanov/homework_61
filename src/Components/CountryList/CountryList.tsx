@@ -3,11 +3,14 @@ import { country } from "../../types";
 
 interface Props {
     countries: country[];
-    onCountry: (code:string) => void;
+    onCountry: (alpha3Code:string) => void;
 }
 
 const CountryList:React.FC<Props> = ({countries, onCountry}) => {
     const countryContainerRef = useRef<HTMLDivElement>(null);
+    const countrySelect = (alpha3Code:string) => {
+        onCountry(alpha3Code);
+    }
     return (
       <div
       className='border border-primary col-6'
@@ -16,7 +19,7 @@ const CountryList:React.FC<Props> = ({countries, onCountry}) => {
       >
         <ul>
           {countries.map((country) => (
-            <li key={Math.random()} onClick={() => onCountry(country.code)}>{country.name}</li>
+            <li key={Math.random()} onClick={() => countrySelect(country.alpha3Code)}>{country.name}</li>
           ))}
         </ul>
       </div>

@@ -10,7 +10,7 @@ const fetchCountries = async (
     const response = await axios.get<country[]>(url);
     const countriesData = response.data.map((country) => ({
       name: country.name,
-      code: country.code,
+      alpha3Code: country.alpha3Code,
     }));
     setCountries(countriesData);
   } catch (error) {

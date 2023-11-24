@@ -7,20 +7,20 @@ import getCountry from "./getCountry";
 
 function App() {
   const [countries, setCountries] = useState<country[]>([]);
-  const [country, setCountry] = useState<countryInfo | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<countryInfo | null>(null);
 
   useEffect(() => {
     void fetchCountries(setCountries);
   }, [fetchCountries]);
 
   const onCountry = (code: string) => {
-    getCountry(code, setCountry);
+    getCountry(code, setSelectedCountry);
   };
   return (
     <>
       <div className="row">
         <CountryList countries={countries || []} onCountry={onCountry} />
-        {/* <FullCountry country={country} /> */}
+        <FullCountry countryInfo={selectedCountry} />
       </div>
     </>
   );
